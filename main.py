@@ -32,7 +32,7 @@ def rdp_session():
 
 def main():
     server_response = rdp_session()
-    info("<-- Server Version: {}.{}".format(server_response['versionMajor'], server_response['versionMinor']))
+    info("Server Version: {}.{}".format(server_response['versionMajor'], server_response['versionMinor']))
 
 
 if __name__ == "__main__":
