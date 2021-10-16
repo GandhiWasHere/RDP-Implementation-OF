@@ -1,4 +1,3 @@
-
 class os_classifier():
     def __init__(self):
         self.conf_rdp = {
@@ -16,14 +15,16 @@ class os_classifier():
         self.conf_ntlm = {
             6:
                 {2:
-                     {
-                         9200:["windows2012"],
-                         9600:["windows2012R2"]
-                     }
+                    {
+                        9200: ["windows2012"]
+                    },
+                    3: {
+                        9600: ["windows2012R2"]
+                    }
                 },
             10:
                 {
-                    0:{
+                    0: {
                         14393: ["windows2016"]
                     }
 
@@ -31,10 +32,12 @@ class os_classifier():
         }
 
         self.window_size = {
-            8192:["windows7"],
-            64000:["windows2012", "windows2012R2", "windows2016", "windows2008R2", "windows2019"],
-            }
-        self.all_os = ["windows7", "windows10","windows2012", "windows2012R2", "windows2016", "windows2008R2", "windows2019"]
+            8192: ["windows7"],
+            64000: ["windows2012", "windows2012R2", "windows2016", "windows2008R2", "windows2019","windows10"],
+            64240: ["windows2012", "windows2012R2", "windows2016", "windows2008R2", "windows2019"]
+        }
+        self.all_os = ["windows7", "windows10", "windows2012", "windows2012R2", "windows2016", "windows2008R2",
+                       "windows2019"]
 
     def classifed_by_version(self, rdp_version, ntlm_version, window_size):
         if window_size:
@@ -42,7 +45,7 @@ class os_classifier():
         else:
             list1 = self.all_os
         if ntlm_version:
-            if self.conf_ntlm.keys().contains(ntlm_version[0]):
+            if ntlm_version[0] in self.conf_ntlm.keys():
                 list2 = self.conf_ntlm[ntlm_version[0]][ntlm_version[1]][ntlm_version[2]]
             else:
                 list2 = self.all_os
@@ -53,7 +56,3 @@ class os_classifier():
         else:
             list3 = self.all_os
         return set(list1) & (set(list2)) & set(list3)
-
-
-
-
