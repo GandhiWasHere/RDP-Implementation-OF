@@ -1,10 +1,11 @@
 from rdp import *
 from mcs_init_struct import ServerResponseParser
+import sys, getopt
 
-ip = "192.168.88.128"
 
 
-def rdp_session():
+
+def rdp_session(ip):
     tpkt = TPKT()
     tpdu = TPDU()
     rdp_neg = RDP_NEG_REQ()
@@ -31,9 +32,18 @@ def rdp_session():
 
 
 def main():
-    server_response = rdp_session()
-    info("Server Version: {}.{}".format(server_response['versionMajor'], server_response['versionMinor']))
-
+    argumentList = sys.argv[1:]
+    arguments, values = getopt.getopt(argumentList, "i:", ['input'])
+    for currentArgument, currentValue in arguments:
+        if currentArgument in ("-i", "--input"):
+            server_response = rdp_session(currentValue)
+            info("Server Version: {}.{}".format(server_response['versionMajor'], server_response['versionMinor']))
+            print(server_response.fields)
+        else:
+            error("Please enter ip address")
+    if not arguments:
+        error("Please enter ip address after")
+        error("Like -i %IP%")
 
 if __name__ == "__main__":
     main()
