@@ -69,14 +69,35 @@ class ServerResponseParser(Structure):
         ('rest', ':=""'),
     )
 
-class ServerResponseError(Structure):
+
+class NtlmNegoParser(Structure):
     commonHdr = (
-        ('TPKTVersion', 'B=3'),
-        ('TPKTReserved', 'B=0'),
-        ('TPKTLength', '>H=len(TPDU)+4'),
-        ('_TPDU', '_-TPDU', 'self["TPKTLength"]-4'),
-        ('x224length', 'B=0'),
-        ('x224pduType', 'B=0'),
-        ('x224Number', 'B=0'),
+        ('CSSP', 'd'),
+        ('version', 'B'),
+        ('idk1', 'd'),
+        ('idk2', 'd'),
+        ('ntlm', 'i'),
+        ('ntlm', 'h'),
+        ('ntlm', 'b'),
+        ('ntlmtype', 'i'),
+        ('lengthNTLM', 'h'),
+        ('maxlength', 'h'),
+        ('offest', 'i'),
+        ('flags1', 'B'),
+        ('flags2', 'B'),
+        ('flags3', 'B'),
+        ('flags4', 'B'),
+        ('ntlmserverchallange', 'i'),
+        ('ntlmserverchallange2', 'i'),
+        ('reserved', 'd'),
+        ('targetLen', 'H'),
+        ('targetMaxLen', 'H'),
+        ('targetoffest', 'i'),
+        ('MajorVersion', 'B'),
+        ('MinorVersion', 'B'),
+        ('build', 'H'),
+        ('pad', 'H'),
+        ('pad', 'B'),
+        ('revision', 'B'),
         ('rest', ':=""'),
     )
