@@ -20,7 +20,8 @@ class os_classifier():
                     },
                     3: {
                         9600: ["windows2012R2"]
-                    }
+                    },
+                    1: {7601:["windows2008R2"]}
                 },
             10:
                 {
