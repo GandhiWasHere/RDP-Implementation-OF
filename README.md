@@ -10,10 +10,19 @@ My main goals:
 5) was not enough so i parsed ntlmm challange - got minor, major and build
 6) add windowsize for more checks
 
+<h3> local machines tests </h3>
+
 ![image](https://user-images.githubusercontent.com/40568399/137641520-d08e2db9-a292-4de9-b14b-c91e46685507.png)
 
 
+<h3> azure machines tests </h3>
 
+![image](https://user-images.githubusercontent.com/40568399/137641593-1443d435-090e-4d8f-8a54-3ca65fd2e938.png)
+
+
+<h3> domain tests </h3>
+
+![image](https://user-images.githubusercontent.com/40568399/137641602-a7b1ac61-4383-4325-91fc-bd98f8843441.png)
 
 
 
