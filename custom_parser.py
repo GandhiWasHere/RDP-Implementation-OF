@@ -70,6 +70,14 @@ class ServerResponseParser(Structure):
     )
 
 
+class RoadTrip(Structure):
+    commonHdr = (
+        ('CSSP', 'd'),
+        ('version', 'B'),
+        ('rest', ':=""'),
+    )
+
+
 class NtlmNegoParser(Structure):
     commonHdr = (
         ('CSSP', 'd'),
@@ -93,6 +101,17 @@ class NtlmNegoParser(Structure):
         ('targetLen', 'H'),
         ('targetMaxLen', 'H'),
         ('targetoffest', 'i'),
+        ('MajorVersion', 'B'),
+        ('MinorVersion', 'B'),
+        ('build', 'H'),
+        ('pad', 'H'),
+        ('pad', 'B'),
+        ('revision', 'B'),
+        ('rest', ':=""'),
+    )
+
+class NtlmNegoParser2(Structure):
+    commonHdr = (
         ('MajorVersion', 'B'),
         ('MinorVersion', 'B'),
         ('build', 'H'),

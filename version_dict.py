@@ -25,7 +25,9 @@ class os_classifier():
             10:
                 {
                     0: {
-                        14393: ["windows2016"]
+                        14393: ["windows2016"],
+                        17763: ["windows2019"],
+                        19041: ["windows10"]
                     }
 
                 }

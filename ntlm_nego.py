@@ -35,7 +35,7 @@ from binascii import a2b_hex
 from Cryptodome.Cipher import ARC4
 from impacket import ntlm, version
 
-from custom_parser import NtlmNegoParser
+from custom_parser import NtlmNegoParser2, RoadTrip
 
 TDPU_CONNECTION_REQUEST = 0xe0
 TPDU_CONNECTION_CONFIRM = 0xd0
@@ -463,7 +463,11 @@ def ntlm_check(host, username="A", password="A", domain="", hashes=None):
     ts_request.fromString(buff)
 
     info("got ntlm challenge")
-    return NtlmNegoParser(buff)
+    if RoadTrip(buff)['version'] > 2:
+        return NtlmNegoParser2(buff[71:])
+    else:
+        return NtlmNegoParser2(buff[72:])
+
     # 3. The client encrypts the public key it received from the server (contained
     # in the X.509 certificate) in the TLS handshake from step 1, by using the
     # confidentiality support of SPNEGO. The public key that is encrypted is the
