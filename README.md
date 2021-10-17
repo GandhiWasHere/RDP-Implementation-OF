@@ -10,9 +10,7 @@ My main goals:
 5) was not enough so i parsed ntlmm challange - got minor, major and build
 6) add windowsize for more checks
 
-
-![image](https://user-images.githubusercontent.com/40568399/137641469-a0100d37-b088-46b0-9575-ce990f649168.png)
-
+![image](https://user-images.githubusercontent.com/40568399/137641520-d08e2db9-a292-4de9-b14b-c91e46685507.png)
 
 
 
